@@ -2,7 +2,11 @@ package com.ireyes.telegrambot.watertracker.model.record;
 
 import java.time.LocalDateTime;
 
+import com.ireyes.telegrambot.watertracker.model.processing.processors.record.Unit;
+
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -16,12 +20,13 @@ public class DrinkRecord {
 	private Long id;
 	private long chatId;
 	private long quantity;
-	private String unit;
+	@Enumerated(EnumType.STRING)
+	private Unit unit;
 	private LocalDateTime dateTime;
 	
 	public DrinkRecord() {}
 	
-	public DrinkRecord(long chatId, long quantity, String unit, LocalDateTime dateTime) {
+	public DrinkRecord(long chatId, long quantity, Unit unit, LocalDateTime dateTime) {
 		this.chatId = chatId;
 		this.quantity = quantity;
 		this.unit = unit;
@@ -50,10 +55,10 @@ public class DrinkRecord {
 	public void setQuantity(long quantity) {
 		this.quantity = quantity;
 	}
-	public String getUnit() {
+	public Unit getUnit() {
 		return unit;
 	}
-	public void setUnit(String unit) {
+	public void setUnit(Unit unit) {
 		this.unit = unit;
 	}
 	public LocalDateTime getDateTime() {

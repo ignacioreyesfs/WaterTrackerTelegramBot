@@ -1,4 +1,4 @@
-package com.ireyes.telegrambot.watertracker.model.processing.processors;
+package com.ireyes.telegrambot.watertracker.model.processing.processors.record;
 
 import java.time.LocalDateTime;
 
@@ -23,35 +23,12 @@ public class RecordMessageProcessor implements MessageProcessor {
 		String message = update.getMessage().getText();
 		
 		DrinkRecord drink = new DrinkRecord(update.getMessage().getChatId()
-				, getQuantity(message), getUnit(message), LocalDateTime.now());
+				, Long.parseLong(RecordParser.getQuantity(message))
+				, RecordParser.getUnit(message), LocalDateTime.now());
 		
 		dao.save(drink);
 		
 		return new SendMessage(update.getMessage().getChatId().toString(), "Record added");
-	}
-	
-	private long getQuantity(String message) {
-		int i;
-		
-		for(i = 0; i < message.length() && Character.isDigit(message.charAt(i)); i++);
-		
-		if(i == 0) {
-			throw new InvalidFormatException(message);
-		}
-		
-		return Long.parseLong(message.substring(0, i));
-	}
-	
-	private String getUnit(String message) {
-		int i;
-		
-		for(i = message.length() - 1; i >= 0 && !Character.isDigit(message.charAt(i)); i--);
-		
-		if(i < 0 || i == message.length() - 1) {
-			throw new InvalidFormatException(message);
-		}
-		
-		return message.substring(i+1);
 	}
 
 }
