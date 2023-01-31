@@ -1,4 +1,4 @@
-package com.ireyes.telegrambot.watertracker.model.processing.processors.record;
+package com.ireyes.telegrambot.watertracker.model.processing.processors;
 
 import java.time.LocalDateTime;
 
@@ -8,6 +8,7 @@ import org.telegram.telegrambots.meta.api.objects.Update;
 import com.ireyes.telegrambot.watertracker.dao.DrinkRecordDao;
 import com.ireyes.telegrambot.watertracker.model.processing.core.MessageProcessor;
 import com.ireyes.telegrambot.watertracker.model.record.DrinkRecord;
+import com.ireyes.telegrambot.watertracker.model.record.RecordParser;
 
 public class RecordMessageProcessor implements MessageProcessor {
 	private Update update;

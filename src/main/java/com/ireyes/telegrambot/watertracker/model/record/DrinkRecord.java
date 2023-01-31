@@ -2,8 +2,6 @@ package com.ireyes.telegrambot.watertracker.model.record;
 
 import java.time.LocalDateTime;
 
-import com.ireyes.telegrambot.watertracker.model.processing.processors.record.Unit;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;

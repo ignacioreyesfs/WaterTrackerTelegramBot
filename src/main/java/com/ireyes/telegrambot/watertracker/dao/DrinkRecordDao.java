@@ -1,10 +1,17 @@
 package com.ireyes.telegrambot.watertracker.dao;
 
+import java.time.LocalDateTime;
+import java.util.List;
+
 import com.ireyes.telegrambot.watertracker.model.record.DrinkRecord;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
+import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.Predicate;
+import jakarta.persistence.criteria.Root;
 
 public class DrinkRecordDao {
 	private EntityManager em;
@@ -35,11 +42,40 @@ public class DrinkRecordDao {
 	}
 	
 	public DrinkRecord findById(Long id) {
-		return em.find(DrinkRecord.class, id);
+		DrinkRecord record;
+		em = emf.createEntityManager();
+		record = em.find(DrinkRecord.class, id);
+		em.close();
+		return record;
+	}
+	
+	public List<DrinkRecord> findBetweenDates(Long chatId, LocalDateTime start, LocalDateTime finish){
+		List<DrinkRecord> records;
+		CriteriaBuilder cb;
+		CriteriaQuery<DrinkRecord> cr;
+		Root<DrinkRecord> root;
+		Predicate[] predicates = new Predicate[2];
+		em = emf.createEntityManager();
+		
+				
+		cb = em.getCriteriaBuilder();
+		cr = cb.createQuery(DrinkRecord.class);
+		root = cr.from(DrinkRecord.class);
+		
+		predicates[0] = cb.between(root.get("dateTime"), start, finish);
+		predicates[1] = cb.equal(root.get("chatId"), chatId);
+		cr.select(root).where(predicates);
+		
+		records = em.createQuery(cr).getResultList();
+		
+		em.close();
+		return records;
 	}
 	
 	public void delete(DrinkRecord drinkRecord) {
+		beginTransaction();
 		em.remove(drinkRecord);
+		endTransaction(true);
 	}
 	
 	private void beginTransaction() {

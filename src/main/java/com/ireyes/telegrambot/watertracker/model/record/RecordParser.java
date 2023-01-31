@@ -1,4 +1,4 @@
-package com.ireyes.telegrambot.watertracker.model.processing.processors.record;
+package com.ireyes.telegrambot.watertracker.model.record;
 
 import com.ireyes.telegrambot.watertracker.model.processing.processors.InvalidFormatException;
 
