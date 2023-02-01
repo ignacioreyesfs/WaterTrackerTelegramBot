@@ -11,7 +11,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "DRINK_RECORD")
+@Table(name="DRINK_RECORD")
 public class DrinkRecord {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

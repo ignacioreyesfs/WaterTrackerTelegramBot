@@ -9,10 +9,10 @@
 		<class>com.ireyes.telegrambot.watertracker.model.record.DrinkRecord</class>
 	    <exclude-unlisted-classes>true</exclude-unlisted-classes>
 	    <properties>
-	        <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5Dialect"/>
+	        <property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect"/>
 	        <property name="hibernate.hbm2ddl.auto" value="create-drop"/>
-	        <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
-	        <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/waterTrackerBot?allowPublicKeyRetrieval=true&amp;useSSL=FALSE"/>
+	        <property name="javax.persistence.jdbc.driver" value="org.h2.Driver"/>
+	        <property name="javax.persistence.jdbc.url" value="jdbc:h2:mem:test"/>
 	        <property name="javax.persistence.jdbc.user" value="db_user"/>
 	        <property name="javax.persistence.jdbc.password" value="db_pw"/>
 	    </properties>

@@ -78,6 +78,21 @@ public class DrinkRecordDao {
 		endTransaction(true);
 	}
 	
+	public Long count() {
+		Long count;
+		em = emf.createEntityManager();
+		CriteriaBuilder cb = em.getCriteriaBuilder();
+		CriteriaQuery<Long> cr = cb.createQuery(Long.class);
+		Root<DrinkRecord> root = cr.from(DrinkRecord.class);
+		
+		cr.select(cb.count(root));
+		count = em.createQuery(cr).getSingleResult();
+		
+		em.close();
+		
+		return count;
+	}
+	
 	private void beginTransaction() {
 		em = emf.createEntityManager();
 		em.getTransaction().begin();
